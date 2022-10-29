@@ -16,18 +16,19 @@ ENABLE_VISION ?= true   # Enable vision in behaviors if true, else just do navig
 
 # Docker variables
 IMAGE_NAME = turtlebot3
-CORE_DOCKERFILE = ${PWD}/docker/dockerfile_nvidia_ros
-BASE_DOCKERFILE = ${PWD}/docker/dockerfile_tb3_base
-OVERLAY_DOCKERFILE = ${PWD}/docker/dockerfile_tb3_overlay
+CORE_DOCKERFILE = docker/dockerfile_nvidia_ros
+BASE_DOCKERFILE = docker/dockerfile_tb3_base
+OVERLAY_DOCKERFILE = docker/dockerfile_tb3_overlay
 
 # Set Docker volumes and environment variables
 DOCKER_VOLUMES = \
-	--volume="${PWD}/tb3_autonomy":"/overlay_ws/src/tb3_autonomy":rw \
-	--volume="${PWD}/tb3_worlds":"/overlay_ws/src/tb3_worlds":rw \
+	--volume="tb3_autonomy":"/overlay_ws/src/tb3_autonomy":rw \
+	--volume="tb3_worlds":"/overlay_ws/src/tb3_worlds":rw \
 	--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"
 DOCKER_ENV_VARS = \
+	--env="ROS_DOMAIN_ID=${ROS_DOMAIN_ID}"
 	--env="NVIDIA_DRIVER_CAPABILITIES=all" \
-	--env="DISPLAY" \
+	--env="DISPLAY=${DISPLAY}" \
 	--env="QT_X11_NO_MITSHM=1"
 ifeq ("${USE_GPU}", "true")
 DOCKER_GPU_ARGS = "--gpus all"

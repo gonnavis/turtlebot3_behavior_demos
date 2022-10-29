@@ -12,19 +12,19 @@ RUN pip3 install transforms3d
 
 # Install additional ROS packages
 RUN apt-get install -y \
- ros-galactic-gazebo-* \
- ros-galactic-cartographer \
- ros-galactic-cartographer-ros \
- ros-galactic-navigation2 \
- ros-galactic-nav2-bringup
+ ros-foxy-gazebo-* \
+ ros-foxy-cartographer \
+ ros-foxy-cartographer-ros \
+ ros-foxy-navigation2 \
+ ros-foxy-nav2-bringup
 
 # Create Colcon workspace with TurtleBot3 packages
 RUN mkdir -p /turtlebot3_ws/src \
  && cd /turtlebot3_ws/src \
- && git clone -b galactic-devel https://github.com/ROBOTIS-GIT/turtlebot3.git \
- && git clone -b galactic-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git \
- && git clone -b galactic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git \
- && git clone -b galactic-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+ && git clone -b foxy-devel https://github.com/ROBOTIS-GIT/turtlebot3.git \
+ && git clone -b foxy-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git \
+ && git clone -b foxy-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git \
+ && git clone -b foxy-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 
 # Install py_trees and related packages.
 # NOTE: For now, using a personal fork of py_trees_ros for some slight interface changes.
@@ -44,7 +44,7 @@ RUN cd /turtlebot3_ws/src \
 
 # Build the base Colcon workspace
 RUN cd /turtlebot3_ws \
- && source /opt/ros/galactic/setup.bash \
+ && source /opt/ros/foxy/setup.bash \
  && colcon build --symlink-install
 
 # Remove display warnings
